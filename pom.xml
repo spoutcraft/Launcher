@@ -193,7 +193,7 @@
 
 	<!-- Build configuration -->
 	<build>
-		<defaultGoal>clean package</defaultGoal>
+		<defaultGoal>clean jfx:jar</defaultGoal>
 
 		<!-- Resources to include -->
 		<resources>
