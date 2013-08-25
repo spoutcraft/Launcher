@@ -19,20 +19,24 @@ import javafx.scene.control.Dialogs;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import org.apache.commons.lang.StringUtils;
 
 import org.spout.platform.chat.manager.ChatManager;
 import org.spout.platform.chat.model.Friend;
+import org.spout.platform.services.PropertyManager;
 
 @FXMLController
 public class ChatController {
+	private static final String SPOUT_XMPP_USERNAME = "spout.xmpp.username";
+	private static final String SPOUT_XMPP_PASSWORD = "spout.xmpp.password";
 	@FXML
 	private ListView<Friend> friendList;
 	@FXML
 	private Button addFriend;
-	private Stage chatStage;
 	@Inject
 	private ChatManager chatManager;
+	@Inject
+	private PropertyManager propertyManager;
 	private String xmppServer;
 	private String xmppPort;
 
@@ -49,12 +53,32 @@ public class ChatController {
 	@FXML
 	public void initialize() {
 
+		//login:
+
+		String username = propertyManager.getProperty(SPOUT_XMPP_USERNAME);
+		String password = propertyManager.getProperty(SPOUT_XMPP_PASSWORD);
+		boolean saved = (username != null) && (password != null);
+
+		if (!saved) {
+
+			username = Dialogs.showInputDialog(null, "Enter your username:");
+			password = Dialogs.showInputDialog(null, "Enter your password:");
+			boolean save = Dialogs.showConfirmDialog(null, "Do you want to save your account details?").equals(Dialogs.DialogResponse.YES);
+			if (save) {
+				propertyManager.saveProperty(SPOUT_XMPP_USERNAME, username);
+				propertyManager.saveProperty(SPOUT_XMPP_PASSWORD, password);
+			}
+		}
+
 		friendList.itemsProperty().bind(new SimpleListProperty(chatManager.getFriends()));
 		addFriend.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
-				String username = Dialogs.showInputDialog(chatStage, "Enter Username", "Enter Username");
-				String xmppaddress = Dialogs.showInputDialog(chatStage, "Enter XMPP Address", "Enter XMPP Address");
+				String username = Dialogs.showInputDialog(null, "Enter Username", "Enter Username");
+				String xmppaddress = Dialogs.showInputDialog(null, "Enter XMPP Address", "Enter XMPP Address");
+				if (StringUtils.isEmpty(username) || StringUtils.isEmpty(xmppaddress)) {
+					Dialogs.showErrorDialog(null, "Username and Address may not be empty.", "Empty Address or Username");
+				}
 				Friend newFriend = new Friend();
 				newFriend.setName(username);
 				newFriend.setImAddress(xmppaddress);
@@ -69,10 +93,6 @@ public class ChatController {
 				}
 			}
 		});
-		chatManager.connect(xmppServer, xmppPort, "", ""); // <- enter username and password here to test.
-	}
-
-	public void setChatStage(Stage chatStage) {
-		this.chatStage = chatStage;
+		chatManager.connect(xmppServer, xmppPort, username, password);
 	}
 }

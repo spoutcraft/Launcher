@@ -18,9 +18,11 @@ import com.cathive.fx.guice.GuiceFXMLLoader;
 import com.google.inject.Inject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.Connection;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -72,7 +74,7 @@ public class XmppChatManager implements ChatManager {
 				}
 				setUpListeners();
 			} catch (XMPPException e) {
-				//TODO errorhandling
+				//TODO: Error handling
 				e.printStackTrace();
 			}
 		}
@@ -121,7 +123,7 @@ public class XmppChatManager implements ChatManager {
 						}
 					}
 				}
-				friends.removeAll(friends);
+				friends.removeAll(toRemove);
 			}
 
 			@Override
@@ -139,21 +141,28 @@ public class XmppChatManager implements ChatManager {
 		});
 	}
 
-	private void openChatWindow(org.jivesoftware.smack.Chat chat) {
-		System.out.println(chat);
-		RosterEntry entry = chatConnection.getRoster().getEntry(chat.getParticipant());
+	private void openChatWindow(final org.jivesoftware.smack.Chat chat) {
+		final String participant = chat.getParticipant();
+		RosterEntry entry = chatConnection.getRoster().getEntry(participant);
 		if (openChats.get(entry.getUser()) == null) {
 			try {
 				GuiceFXMLLoader.Result chatResult = fxmlLoader.load(XmppChatManager.class.getResource(Views.CHAT_WINDOWS_VIEW));
 				((ChatWindowController) chatResult.getController()).populate(chat);
 				Scene scene = new Scene((Parent) chatResult.getRoot());
 				Stage stage = new Stage();
-				stage.setTitle(chat.getParticipant());
+				stage.setTitle(participant);
 				stage.setScene(scene);
-				openChats.put(chat.getParticipant(), chat);
+				openChats.put(participant, chat);
 				stage.show();
+				// Remove Chat from the map of open chats once the window is closed.
+				stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+					@Override
+					public void handle(WindowEvent windowEvent) {
+						openChats.remove(participant);
+					}
+				});
 			} catch (IOException e) {
-				e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				e.printStackTrace(); //TODO: Error handling
 			}
 		}
 	}
@@ -171,7 +180,7 @@ public class XmppChatManager implements ChatManager {
 		try {
 			chatConnection.getRoster().createEntry(friend.getImAddress(), friend.getName(), new String[] {});
 		} catch (XMPPException e) {
-			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+			e.printStackTrace();  //TODO: Error handling
 		}
 	}
 

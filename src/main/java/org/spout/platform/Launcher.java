@@ -35,6 +35,8 @@ import org.spout.platform.chat.manager.XmppChatManager;
 import org.spout.platform.controller.ApplicationController;
 import org.spout.platform.controller.NotificationController;
 import org.spout.platform.gui.Views;
+import org.spout.platform.services.PropertyManager;
+import org.spout.platform.services.impl.SimplePropertyManager;
 import org.spout.platform.util.OperatingSystem;
 
 public class Launcher extends GuiceApplication {
@@ -44,7 +46,8 @@ public class Launcher extends GuiceApplication {
 	static {
 		if (OperatingSystem.MAC_OSX.equals(OperatingSystem.getOS())) {
 			// Yet another OSX workaround. Only needed for XMPP/Smack Debugger
-			// Should be disabled in production! Will produce funny warnings in console.
+			// should be disabled in prod!
+			// will produce funny warnings in console.
 			System.setProperty("javafx.macosx.embedded", "true");
 			java.awt.Toolkit.getDefaultToolkit();
 		}
@@ -65,8 +68,8 @@ public class Launcher extends GuiceApplication {
 	public void start(Stage mainStage) throws Exception {
 		loadFonts();
 
-		Connection.DEBUG_ENABLED = true; // Enable XMPP / Smack API Debugging, for development only!
-		System.setProperty("java.awt.headless", "false"); // Mac OS X workaround for Smack debugging & JavaFX (Swing + JavaFX issue)
+		Connection.DEBUG_ENABLED = true; //enable XMPP / Smack API Debugging, for development only!
+		System.setProperty("java.awt.headless", "false"); // osx workaround for smack debugging & javafx (swing+javafx issue)
 
 		mainStage.initStyle(StageStyle.UNDECORATED);
 		mainStage.setTitle("Spout Platform");
@@ -109,6 +112,7 @@ public class Launcher extends GuiceApplication {
 			@Override
 			protected void configure() {
 				bind(ChatManager.class).to(XmppChatManager.class).in(Singleton.class);
+				bind(PropertyManager.class).to(SimplePropertyManager.class).in(Singleton.class);
 				Names.bindProperties(binder(), getProperties());
 			}
 

@@ -99,7 +99,7 @@ public class ApplicationController {
 		private static final long serialVersionUID = 1L;
 
 		{
-			add(Views.LOGIN_VIEW);
+			//add(Views.LOGIN_VIEW);
 			add(Views.DASHBOARD_VIEW);
 			add(Views.WEB_VIEW);
 		}
@@ -140,6 +140,7 @@ public class ApplicationController {
 	 * Sets the active Controller in the content area.
 	 *
 	 * @param contentController the new active controller.
+	 * @param animate wether the change of controllers should be animated.
 	 */
 	void activateController(final ContentController contentController, boolean animate) {
 		if (activeController == contentController) {
@@ -158,38 +159,42 @@ public class ApplicationController {
 		activeController.getNavigationButton().getStyleClass().add("selected");
 		int direction = from < to ? -1 : 1;
 		if (animate && oldController != null) {
-			oldController.getRootNode().setVisible(true);
-			if (activeController.getRootNode() instanceof Pane) {
-				((Pane) activeController.getRootNode()).setPrefSize(content.getWidth(), content.getHeight());
-			}
-			if (oldController.getRootNode() instanceof Pane) {
-				((Pane) oldController.getRootNode()).setPrefSize(content.getWidth(), content.getHeight());
-			}
-			AnchorPane.clearConstraints(activeController.getRootNode());
-			AnchorPane.clearConstraints(oldController.getRootNode());
-			final Timeline timeline = new Timeline();
-			timeline.setCycleCount(1);
-			KeyValue kvNew = new KeyValue(activeController.getRootNode().layoutXProperty(), content.getWidth() * -direction);
-			KeyValue kvNewOpac = new KeyValue(activeController.getRootNode().opacityProperty(), 0.0);
-			KeyFrame kf = new KeyFrame(Duration.ZERO, kvNew, kvNewOpac);
-			timeline.getKeyFrames().add(kf);
-			KeyValue kvOld = new KeyValue(oldController.getRootNode().layoutXProperty(), content.getWidth() * direction);
-			kvNew = new KeyValue(activeController.getRootNode().layoutXProperty(), 0);
-			kvNewOpac = new KeyValue(activeController.getRootNode().opacityProperty(), 1.0);
-			KeyValue kvOldOpac = new KeyValue(oldController.getRootNode().opacityProperty(), 0.0);
-			kf = new KeyFrame(Duration.millis(200), kvOld, kvNew, kvNewOpac, kvOldOpac);
-			timeline.getKeyFrames().add(kf);
-			timeline.play();
-			timeline.setOnFinished(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent arg0) {
-					setControllerConstrains(oldController);
-					setControllerConstrains(contentController);
-					oldController.getRootNode().setVisible(false);
-				}
-			});
+			animateController(contentController, oldController, direction);
 		}
 		activeController.onActivate();
+	}
+
+	private void animateController(final ContentController contentController, final ContentController oldController, int direction) {
+		oldController.getRootNode().setVisible(true);
+		if (activeController.getRootNode() instanceof Pane) {
+			((Pane) activeController.getRootNode()).setPrefSize(content.getWidth(), content.getHeight());
+		}
+		if (oldController.getRootNode() instanceof Pane) {
+			((Pane) oldController.getRootNode()).setPrefSize(content.getWidth(), content.getHeight());
+		}
+		AnchorPane.clearConstraints(activeController.getRootNode());
+		AnchorPane.clearConstraints(oldController.getRootNode());
+		final Timeline timeline = new Timeline();
+		timeline.setCycleCount(1);
+		KeyValue kvNew = new KeyValue(activeController.getRootNode().layoutXProperty(), content.getWidth() * -direction);
+		KeyValue kvNewOpac = new KeyValue(activeController.getRootNode().opacityProperty(), 0.0);
+		KeyFrame kf = new KeyFrame(Duration.ZERO, kvNew, kvNewOpac);
+		timeline.getKeyFrames().add(kf);
+		KeyValue kvOld = new KeyValue(oldController.getRootNode().layoutXProperty(), content.getWidth() * direction);
+		kvNew = new KeyValue(activeController.getRootNode().layoutXProperty(), 0);
+		kvNewOpac = new KeyValue(activeController.getRootNode().opacityProperty(), 1.0);
+		KeyValue kvOldOpac = new KeyValue(oldController.getRootNode().opacityProperty(), 0.0);
+		kf = new KeyFrame(Duration.millis(200), kvOld, kvNew, kvNewOpac, kvOldOpac);
+		timeline.getKeyFrames().add(kf);
+		timeline.play();
+		timeline.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				setControllerConstrains(oldController);
+				setControllerConstrains(contentController);
+				oldController.getRootNode().setVisible(false);
+			}
+		});
 	}
 
 	void activateController(ContentController contentController) {
