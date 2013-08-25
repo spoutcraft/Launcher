@@ -14,7 +14,7 @@
 	<!-- Parent information -->
 	<parent>
 		<groupId>org.spout</groupId>
-		<artifactId>spout-parent</artifactId>
+		<artifactId>shared-parent</artifactId>
 		<version>1</version>
 	</parent>
 
