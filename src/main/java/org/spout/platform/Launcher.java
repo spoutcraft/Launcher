@@ -45,9 +45,7 @@ public class Launcher extends GuiceApplication {
 
 	static {
 		if (OperatingSystem.MAC_OSX.equals(OperatingSystem.getOS())) {
-			// Yet another OSX workaround. Only needed for XMPP/Smack Debugger
-			// should be disabled in prod!
-			// will produce funny warnings in console.
+			// Should be disabled in production! Will produce funny warnings in console.
 			System.setProperty("javafx.macosx.embedded", "true");
 			java.awt.Toolkit.getDefaultToolkit();
 		}
@@ -68,8 +66,8 @@ public class Launcher extends GuiceApplication {
 	public void start(Stage mainStage) throws Exception {
 		loadFonts();
 
-		Connection.DEBUG_ENABLED = true; //enable XMPP / Smack API Debugging, for development only!
-		System.setProperty("java.awt.headless", "false"); // osx workaround for smack debugging & javafx (swing+javafx issue)
+		Connection.DEBUG_ENABLED = true; // Enable XMPP / Smack API Debugging, for development only!
+		System.setProperty("java.awt.headless", "false"); // Mac OS X workaround for Smack debugging and JavaFX (Swing + JavaFX issue).
 
 		mainStage.initStyle(StageStyle.UNDECORATED);
 		mainStage.setTitle("Spout Platform");
