@@ -1,1 +1,1 @@
-java -Xms256M -Xmx1024M -jar ../target/platform-0.0.1-SNAPSHOT.jar
+java -Xms256M -Xmx1024M -jar ../target/platform-1.0.0-SNAPSHOT.jar
