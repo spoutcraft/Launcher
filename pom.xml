@@ -1,0 +1,375 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Project information -->
+	<name>Spout Platform</name>
+	<groupId>org.spout</groupId>
+	<artifactId>platform</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<url>https://www.spout.org</url>
+	<inceptionYear>2012</inceptionYear>
+	<description>Platform frontend, user interface, and launcher for the Spout voxel game engine.</description>
+
+	<!-- Parent information -->
+	<parent>
+		<groupId>org.spout</groupId>
+		<artifactId>spout-parent</artifactId>
+		<version>1</version>
+	</parent>
+
+	<!-- Build properties -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<buildNumber>0</buildNumber>
+		<mainClass>${project.groupId}.${project.artifactId}.Launcher</mainClass>
+		<keystore.path>${project.basedir}/src/main/resources/keystore.jks</keystore.path>
+		<keystore.alias>spoutdev</keystore.alias>
+		<keystore.keypass>unleashtheflow</keystore.keypass>
+		<keystore.storepass>unleashtheflow</keystore.storepass>
+	</properties>
+
+	<!-- Company information -->
+	<organization>
+		<name>Spout LLC</name>
+		<url>http://www.spout.org</url>
+	</organization>
+
+	<!-- License information -->
+	<licenses>
+		<license>
+			<name>Spout LLC Copyright</name>
+			<distribution>repo</distribution>
+			<comments>All Rights Reserved, unless otherwise granted permission.</comments>
+		</license>
+	</licenses>
+
+	<!-- Source code access -->
+	<scm>
+		<connection>scm:git:git://github.com/SpoutDev/Platform.git</connection>
+		<developerConnection>scm:git:git@github.com:SpoutDev/Platform.git</developerConnection>
+		<url>https://github.com/SpoutDev/Platform</url>
+	</scm>
+
+	<!-- Issue management -->
+	<issueManagement>
+		<system>jira</system>
+		<url>http://issues.spout.org/browse/SPOUT</url>
+	</issueManagement>
+
+	<!-- Plugin repositories -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
+			<snapshots>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- Project dependencies -->
+	<dependencies>
+		<!-- Include in final JAR -->
+		<dependency>
+			<groupId>ch.makery</groupId>
+			<artifactId>javafx-dialogs</artifactId>
+			<version>0.0.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.beust</groupId>
+			<artifactId>jcommander</artifactId>
+			<version>1.30</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cathive.fx</groupId>
+			<artifactId>fx-guice</artifactId>
+			<version>2.1.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.narrowtux</groupId>
+			<artifactId>fxdecorate</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.igniterealtime.smack</groupId>
+			<artifactId>smack</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.igniterealtime.smack</groupId>
+			<artifactId>smackx</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-convert</artifactId>
+			<version>1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spout</groupId>
+			<artifactId>auth-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spout</groupId>
+			<artifactId>auth-shared</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spout</groupId>
+			<artifactId>downpour</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.12</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Provided by system -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>javafx</artifactId>
+			<version>2.2</version>
+			<systemPath>${java.home}/lib/jfxrt.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<!-- Testing only -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- Build configuration -->
+	<build>
+		<defaultGoal>clean package</defaultGoal>
+
+		<!-- Resources to include -->
+		<resources>
+			<!-- Static resources -->
+			<resource>
+				<filtering>false</filtering>
+				<directory>.</directory>
+				<targetPath>.</targetPath>
+				<includes>
+					<include>LICENSE.txt</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+				<targetPath>org/spout/platform/resources</targetPath>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>app/*</exclude>
+					<exclude>exe/*</exclude>
+					<exclude>keystore.jks</exclude>
+					<exclude>jalopy.xml</exclude>
+				</excludes>
+			</resource>
+			<!-- Filtered resources -->
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<targetPath>org/spout/platform/resources</targetPath>
+				<includes>
+					<include>version</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<!-- Build plugins -->
+		<plugins>
+			<!-- License headers plugin -->
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<properties>
+								<name>${project.name}</name>
+								<url>${project.organization.url}</url>
+								<inceptionYear>${project.inceptionYear}</inceptionYear>
+								<organization>${project.organization.name}</organization>
+							</properties>
+							<quiet>true</quiet>
+							<encoding>UTF-8</encoding>
+							<strictCheck>true</strictCheck>
+							<header>HEADER.txt</header>
+							<mapping>
+								<java>SLASHSTAR_STYLE</java>
+							</mapping>
+							<keywords>
+								<keyword>${project.name}</keyword>
+								<keyword>CONFIDENTIAL</keyword>
+							</keywords>
+							<includes>
+								<include>src/main/java/**</include>
+								<include>src/test/java/**</include>
+							</includes>
+						</configuration>
+						<phase>clean</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Source compiler plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerArguments>
+						<O>-Xlint:all</O>
+						<O>-Xlint:-path</O>
+					</compilerArguments>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<!-- JAR creation plugin -->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.javafx.main.Main</mainClass>
+							<JavaFX-Version>${javafxVersion}</JavaFX-Version>
+							<JavaFX-Application-Class>${mainClass}</JavaFX-Application-Class>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>-->
+			<!-- JavaFX assembly plugin -->
+			<plugin>
+				<groupId>com.zenjava</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<jfxMainAppJarName>${project.build.finalName}.jar</jfxMainAppJarName>
+					<jfxAppOutputDir>${project.build.directory}</jfxAppOutputDir>
+					<mainClass>${mainClass}</mainClass>
+					<signJar>
+						<keystore>${keystore.path}</keystore>
+						<alias>${keystore.alias}</alias>
+						<storePassword>${keystore.storepass}</storePassword>
+						<keypass>${keystore.keypass}</keypass>
+					</signJar>
+				</configuration>
+			</plugin>
+			<!-- Dependency addition plugin -->
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>**/*.DSA</exclude>
+										<exclude>**/*.SF</exclude>
+										<exclude>**/*.java</exclude>
+										<exclude>**/DEPENDENCIES</exclude>
+										<exclude>**/LICENSE</exclude>
+										<exclude>**/NOTICE</exclude>
+										<exclude>**/VERSION.txt</exclude>
+										<exclude>META-INF/*.txt</exclude>
+										<exclude>META-INF/*.xml</exclude>
+										<exclude>META-INF/ASL2.0</exclude>
+										<exclude>lib/**</exclude>
+										<exclude>templates/**</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<artifactSet>
+								<excludes>
+									<exclude>org.bouncycastle:*</exclude>
+								</excludes>
+							</artifactSet>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>-->
+			<!-- JAR signing plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<configuration>
+							<keystore>${keystore.path}</keystore>
+							<alias>${keystore.alias}</alias>
+							<storepass>${keystore.storepass}</storepass>
+							<keypass>${keystore.keypass}</keypass>
+							<verbose>true</verbose>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

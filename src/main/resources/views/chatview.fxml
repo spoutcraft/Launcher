@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="180.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.spout.platform.controller.ChatController">
+	<children>
+		<BorderPane prefHeight="400.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<center>
+				<ListView fx:id="friendList" prefHeight="200.0" prefWidth="200.0" />
+			</center>
+			<top>
+				<Button fx:id="addFriend" mnemonicParsing="false" text="Add Friend" />
+			</top>
+		</BorderPane>
+	</children>
+</AnchorPane>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="480.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.spout.platform.controller.ChatWindowController">
+	<children>
+		<BorderPane prefHeight="320.0" prefWidth="480.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<bottom>
+				<TextArea fx:id="inputField" prefHeight="64.0" prefWidth="480.0" wrapText="true" />
+			</bottom>
+			<center>
+				<TextArea fx:id="chatArea" editable="false" prefWidth="200.0" wrapText="true" />
+			</center>
+		</BorderPane>
+	</children>
+</AnchorPane>

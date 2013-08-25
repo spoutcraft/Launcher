@@ -1,0 +1,179 @@
+* {
+    -fx-font-family: "Ubuntu Light";
+}
+
+.root {
+    -fx-font-family: "Ubuntu Light" !important;
+    -fx-font-smoothing-type: gray !important;
+    -fx-font-size: 12pt;
+}
+
+.icon {
+    -fx-font-family: "FontAwesome";
+}
+
+.background {
+    -fx-background-image: url("../background.png");
+    -fx-background-repeat: repeat;
+}
+
+.avatar-default {
+    -fx-font-size: 40pt !important;
+}
+
+.button {
+    /* Default button colors */
+    -spout-button-top-color: white;
+    -spout-button-gradient-top-color: white;
+    -spout-button-gradient-bottom-color: #ECEFF2;
+    -spout-button-border-color: #C3C3C3;
+
+    -spout-button-hover-gradient-top-color: white;
+    -spout-button-hover-gradient-bottom-color: #E8ECF0;
+    -spout-button-hover-border-color: #C3C3C3;
+
+    -spout-button-armed-border-color: #C3C3C3;
+    -spout-button-text-color: black;
+    -spout-button-hover-text-color: #368DB2;
+
+    -fx-font-family: "Ubuntu Medium" !important;
+    -fx-text-fill: -spout-button-text-color;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: -spout-button-border-color;
+    -fx-background-color: -spout-button-top-color, linear-gradient(to bottom, -spout-button-gradient-top-color, -spout-button-gradient-bottom-color);
+    -fx-background-insets: 0, 2 0 0 0;
+    -fx-background-radius: 0;
+    -fx-padding: 10;
+}
+
+.button:hover {
+    -fx-border-color: -spout-button-hover-border-color;
+    -fx-background-color: -spout-button-top-color, linear-gradient(to bottom, -spout-button-hover-gradient-top-color, -spout-button-hover-gradient-bottom-color);
+    -fx-text-fill: -spout-button-hover-text-color;
+}
+
+.button:armed {
+    -fx-border-color: -spout-button-armed-border-color;
+    -fx-background-insets: 0, 0;
+    -fx-background-color: -spout-button-gradient-top-color !important;
+    -fx-effect: innershadow(three-pass-box, #969696, 25, 0.0, 0, 0);
+}
+
+.button:default, .button.action {
+    -spout-button-top-color: #3576D4;
+    -spout-button-gradient-top-color: #2966BF;
+    -spout-button-gradient-bottom-color: #2761B5;
+    -spout-button-border-color: #1F4D91;
+
+    -spout-button-hover-gradient-top-color: #2B6DCB;
+    -spout-button-hover-gradient-bottom-color: #2966BE;
+    -spout-button-hover-border-color: linear-gradient(to bottom, #2155A0, #2966BF);
+
+    -spout-button-armed-border-color: linear-gradient(to bottom, #1E498B, #2966BE);
+    -spout-button-text-color: white;
+    -spout-button-hover-text-color: white;
+}
+
+.button.alert {
+    -spout-button-top-color: #CB3C3D;
+    -spout-button-gradient-top-color: #B23635;
+    -spout-button-gradient-bottom-color: #AA3333;
+    -spout-button-border-color: #862928;
+
+    -spout-button-hover-gradient-top-color: #B64040 !important;
+    -spout-button-hover-gradient-bottom-color: #AD3D3D !important;
+    -spout-button-hover-border-color: linear-gradient(to bottom, #962D2D, #B03737);
+
+    -spout-button-armed-border-color: linear-gradient(to bottom, #812625, #B13636);
+    -spout-button-text-color: white;
+    -spout-button-hover-text-color: white;
+}
+
+.button.confirm {
+    -spout-button-top-color: #53B45B;
+    -spout-button-gradient-top-color: #46A34E;
+    -spout-button-gradient-bottom-color: #419A49;
+    -spout-button-border-color: #357B3B;
+
+    -spout-button-hover-gradient-top-color: #4AAB52 !important;
+    -spout-button-hover-gradient-bottom-color: #47A44F !important;
+    -spout-button-hover-border-color: linear-gradient(to bottom, #3B8841, #60AD68);
+
+    -spout-button-armed-border-color: linear-gradient(to bottom, #327437, #45A14D);
+    -spout-button-text-color: white;
+    -spout-button-hover-text-color: white;
+}
+
+.button:default:armed, .button.alert:armed, .button.alert:armed, .button.confirm:armed {
+    -fx-effect: innershadow(three-pass-box, black, 25, 0.0, 0, 0);
+}
+
+.button:default .text, .button.action .text, .button.confirm .text, .button.alert .text {
+    -fx-effect: dropshadow(gaussian, grey, 2, 0.0, 0, -1);
+}
+
+.text-field {
+    -fx-background-color: #E8EBF1;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #C2CCD2;
+    -fx-border-radius: 1px;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-padding: 10;
+    -fx-promt-text: black;
+    -fx-promt-text-fill: #959A9F;
+}
+
+.window-control {
+    -fx-border-style: null;
+    -fx-border-color: transparent;
+    -fx-background-color: null;
+    -fx-text-fill: #8F9396;
+    -fx-padding: 5;
+}
+
+.window-control:hover {
+    -fx-text-fill: #6B6E70;
+}
+
+.notification-button {
+    -fx-background-color: #1D90D9;
+    -fx-border-style: null;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
+    -fx-border-width: 0;
+    -fx-padding: 5;
+}
+
+.notification-button:hover, .notification-button:armed {
+    -fx-background-color: #2B6DCB !important;
+}
+
+.nav-button {
+    -fx-padding: 10px;
+    -fx-text-fill: #336A97;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.nav-button.selected {
+    -fx-padding: 11px 9px 9px 11px;
+}
+
+.nav-button.selected, .nav-button:armed {
+    -fx-text-fill: #0A8EDC;
+    -fx-effect: innershadow(gaussian, #CCCED3, 5, 0.0, 5, 3);
+    -fx-background-color: #DFE1E7;
+}
+
+.nav-button:armed {
+    -fx-text-fill: #2A8EFC !important;
+    -fx-padding: 12px 8px 8px 12px !important;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-border-style: none;
+}

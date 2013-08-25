@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="200.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.spout.platform.controller.NotificationController">
+	<children>
+		<AnchorPane fx:id="content" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+			<children>
+				<Rectangle fx:id="titleBar" height="40.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="notificationaccent" width="169.99998474121094" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+					<fill>
+						<Color blue="0.871" green="0.580" red="0.329" fx:id="x1" />
+					</fill>
+				</Rectangle>
+				<Rectangle fx:id="arrow" fill="$x1" height="15.0" layoutX="138.0" layoutY="3.0" rotate="45.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="1.7" styleClass="notificationaccent" width="15.0" />
+				<ListView fx:id="notificationList" prefHeight="307.0" prefWidth="170.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+			</children>
+		</AnchorPane>
+	</children>
+	<effect>
+		<DropShadow height="11.0" radius="5.0" width="11.0" />
+	</effect>
+	<stylesheets>
+		<URL value="@light.css" />
+	</stylesheets>
+</AnchorPane>
