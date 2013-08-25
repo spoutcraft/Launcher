@@ -2,8 +2,6 @@
 language: java
 jdk: oraclejdk7
 
-# Include JavaFX in the JDK's classpath.
-before_script: mvn jfx:fix-classpath -DsilentJfxFix=true
 # Compile and package an executable JavaFX JAR and set build properties.
 install: mvn jfx:jar -DbuildNumber=$TRAVIS_BUILD_NUMBER -DciSystem=travis -Dcommit=${TRAVIS_COMMIT:0:7}
 
