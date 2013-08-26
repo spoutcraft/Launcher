@@ -127,8 +127,8 @@ public class Launcher extends GuiceApplication {
 	}
 
 	private static void loadFonts() {
-		loadFont("font/awesome/fontawesome-webfont.ttf");
-		loadFont("font/ubuntu/Ubuntu-L.ttf");
+		loadFont("/org/spout/platform/resources/font/awesome/fontawesome-webfont.ttf");
+		loadFont("/org/spout/platform/resources/font/ubuntu/Ubuntu-L.ttf");
 	}
 
 	private static void loadFont(String location) {
