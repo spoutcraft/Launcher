@@ -25,7 +25,7 @@ public class WebViewController extends ContentController {
 
 	@Override
 	public void onActivate() {
-		webView.getEngine().load("http://www.spout.org");
+		webView.getEngine().load("https://www.spout.org");
 	}
 
 	@Override

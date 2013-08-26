@@ -38,6 +38,7 @@ import org.spout.platform.gui.Views;
 import org.spout.platform.services.PropertyManager;
 import org.spout.platform.services.impl.SimplePropertyManager;
 import org.spout.platform.util.OperatingSystem;
+import org.spout.platform.util.SSLUtils;
 
 public class Launcher extends GuiceApplication {
 	public static final int MIN_WIDTH = 800;
@@ -65,7 +66,7 @@ public class Launcher extends GuiceApplication {
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		loadFonts();
-
+		SSLUtils.installCertificates();
 		Connection.DEBUG_ENABLED = true; // Enable XMPP / Smack API Debugging, for development only!
 		System.setProperty("java.awt.headless", "false"); // Mac OS X workaround for Smack debugging and JavaFX (Swing + JavaFX issue).
 
