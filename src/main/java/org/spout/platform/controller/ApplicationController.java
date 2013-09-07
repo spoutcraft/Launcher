@@ -102,6 +102,7 @@ public class ApplicationController {
 			//add(Views.LOGIN_VIEW);
 			add(Views.DASHBOARD_VIEW);
 			add(Views.WEB_VIEW);
+			add(Views.PLAY_VIEW);
 		}
 	}; // Sub views of the Application
 	private List<ContentController> controllers = new ArrayList<ContentController>();

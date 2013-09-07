@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="org.spout.platform.controller.PlayController">
+  <children>
+    <Button fx:id="playButton" layoutX="224.0" layoutY="181.0" mnemonicParsing="false" onAction="#onPlayClicked" prefHeight="39.0" prefWidth="152.0" text="PLAY" />
+    <ProgressIndicator fx:id="progress" layoutX="285.0" layoutY="132.0" />
+  </children>
+</AnchorPane>
