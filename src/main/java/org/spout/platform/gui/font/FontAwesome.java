@@ -294,7 +294,7 @@ public class FontAwesome {
 	}
 
 	public static Label createIconLabel(String iconName, int iconSize) {
-		return LabelBuilder.create().text(iconName).styleClass("icons").style("-fx-font-size: " + iconSize + "px;").build();
+		return LabelBuilder.create().text(iconName).styleClass("icon").style("-fx-font-size: " + iconSize + "px;").build();
 	}
 
 	public static void stylise(Label label) {

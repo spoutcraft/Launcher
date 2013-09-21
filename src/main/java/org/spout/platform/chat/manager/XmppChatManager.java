@@ -16,6 +16,7 @@ import java.util.Map;
 
 import com.cathive.fx.guice.GuiceFXMLLoader;
 import com.google.inject.Inject;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -40,6 +41,15 @@ import org.spout.platform.controller.ChatWindowController;
 import org.spout.platform.gui.Views;
 
 public class XmppChatManager implements ChatManager {
+	private static final Map<Presence.Mode, Friend.Status> SMACK_STATUS_MAPPING = new HashMap<Presence.Mode, Friend.Status>() {
+		{
+			put(Presence.Mode.available, Friend.Status.AVAILABLE);
+			put(Presence.Mode.away, Friend.Status.AWAY);
+			put(Presence.Mode.dnd, Friend.Status.DND);
+			put(Presence.Mode.xa, Friend.Status.NA);
+			put(Presence.Mode.chat, Friend.Status.CHAT);
+		}
+	};
 	@Inject
 	private GuiceFXMLLoader fxmlLoader;
 	private Connection chatConnection = null;
@@ -97,12 +107,7 @@ public class XmppChatManager implements ChatManager {
 			public void entriesUpdated(Collection<String> addresses) {
 				for (String address : addresses) {
 					Friend foundFriend = null;
-					for (Friend friend : friends) {
-						if (address.equals(friend.getImAddress())) {
-							foundFriend = friend;
-							break;
-						}
-					}
+					foundFriend = friendFromAddress(address);
 					if (foundFriend == null) {
 						return;
 					}
@@ -127,8 +132,15 @@ public class XmppChatManager implements ChatManager {
 			}
 
 			@Override
-			public void presenceChanged(Presence presence) {
-				//TODO: show online status in friendlist
+			public void presenceChanged(final Presence presence) {
+				String from = presence.getFrom();
+				final Friend friend = friendFromAddress(from);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						friend.setStatus(SMACK_STATUS_MAPPING.get(presence.getMode()));
+					}
+				});
 			}
 		});
 		chatConnection.getChatManager().addChatListener(new ChatManagerListener() {
@@ -139,6 +151,15 @@ public class XmppChatManager implements ChatManager {
 				}
 			}
 		});
+	}
+
+	private Friend friendFromAddress(String address) {
+		for (Friend friend : friends) {
+			if (address.equals(friend.getImAddress())) {
+				return friend;
+			}
+		}
+		return null;
 	}
 
 	private void openChatWindow(final org.jivesoftware.smack.Chat chat) {

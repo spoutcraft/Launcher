@@ -17,6 +17,19 @@ public class Friend {
 	private StringProperty name = new SimpleStringProperty("");
 	private StringProperty imAddress = new SimpleStringProperty("");
 	private ObjectProperty<Image> avatar = new SimpleObjectProperty<>();
+	private ObjectProperty<Status> status = new SimpleObjectProperty<>(Status.OFFLINE);
+
+	public Status getStatus() {
+		return status.get();
+	}
+
+	public ObjectProperty<Status> statusProperty() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status.set(status);
+	}
 
 	public Image getAvatar() {
 		return avatar.get();
@@ -57,5 +70,9 @@ public class Friend {
 	@Override
 	public String toString() {
 		return getImAddress();
+	}
+
+	public static enum Status {
+		AVAILABLE, OFFLINE, AWAY, NA, CHAT, DND
 	}
 }

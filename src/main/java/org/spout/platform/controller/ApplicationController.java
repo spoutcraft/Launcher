@@ -44,6 +44,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
@@ -128,10 +129,11 @@ public class ApplicationController {
 		minButtonIcon.setText(FontAwesome.ICON_MINUS);
 		try {
 			Result chatResult = fxmlLoader.load(ApplicationController.class.getResource(Views.CHAT_VIEW));
-			Scene scene = new Scene((Parent) chatResult.getRoot());
-			Stage stage = new Stage();
+			Stage stage = new Stage(StageStyle.UNDECORATED);
+			FxDecorateScene scene = new FxDecorateScene((Parent) chatResult.getRoot(), stage);
 			stage.setScene(scene);
 			stage.show();
+			chatResult.<ChatController>getController().initScene();
 		} catch (IOException e) {
 			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
 		}

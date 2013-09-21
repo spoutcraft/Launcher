@@ -10,6 +10,7 @@ package org.spout.platform.controller;
 import com.cathive.fx.guice.FXMLController;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.narrowtux.fxdecorate.FxDecorateScene;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.concurrent.Task;
@@ -23,6 +24,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Rectangle;
 import org.apache.commons.lang.StringUtils;
 
 import org.spout.platform.chat.manager.ChatManager;
@@ -33,6 +35,8 @@ import org.spout.platform.services.PropertyManager;
 public class ChatController {
 	private static final String SPOUT_XMPP_USERNAME = "spout.xmpp.username";
 	private static final String SPOUT_XMPP_PASSWORD = "spout.xmpp.password";
+	@FXML
+	private Rectangle chatNavBackground;
 	@FXML
 	private BorderPane borderPane;
 	@FXML
@@ -86,6 +90,7 @@ public class ChatController {
 				String xmppaddress = Dialogs.showInputDialog(null, "Enter XMPP Address", "Enter XMPP Address");
 				if (StringUtils.isEmpty(username) || StringUtils.isEmpty(xmppaddress)) {
 					Dialogs.showErrorDialog(null, "Username and Address may not be empty.", "Empty Address or Username");
+					return;
 				}
 				Friend newFriend = new Friend();
 				newFriend.setName(username);
@@ -107,15 +112,27 @@ public class ChatController {
 		applicationController.getExecutorService().submit(new Task<Void>() {
 			@Override
 			protected Void call() throws Exception {
-				chatManager.connect(xmppServer, xmppPort, finalUsername, finalPassword);
+				//TODO: Uncomment once Jabber is running again.
+				// chatManager.connect(xmppServer, xmppPort, finalUsername, finalPassword);
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
 						borderPane.setCenter(friendList);
 					}
 				});
+				//TODO: Remove once Jabber is running again.
+				for (int i = 0; i < Friend.Status.values().length; i++) {
+					Friend friend = new Friend();
+					friend.setName("Wulfspider");
+					friend.setStatus(Friend.Status.values()[i]);
+					chatManager.getFriends().add(friend);
+				}
 				return null;
 			}
 		});
+	}
+
+	public void initScene() {
+		((FxDecorateScene) chatNavBackground.getScene()).getController().addMoveNode(chatNavBackground);
 	}
 }
