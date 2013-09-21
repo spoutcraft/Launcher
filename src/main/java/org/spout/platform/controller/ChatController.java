@@ -10,15 +10,19 @@ package org.spout.platform.controller;
 import com.cathive.fx.guice.FXMLController;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import org.apache.commons.lang.StringUtils;
 
 import org.spout.platform.chat.manager.ChatManager;
@@ -30,6 +34,8 @@ public class ChatController {
 	private static final String SPOUT_XMPP_USERNAME = "spout.xmpp.username";
 	private static final String SPOUT_XMPP_PASSWORD = "spout.xmpp.password";
 	@FXML
+	private BorderPane borderPane;
+	@FXML
 	private ListView<Friend> friendList;
 	@FXML
 	private Button addFriend;
@@ -37,6 +43,8 @@ public class ChatController {
 	private ChatManager chatManager;
 	@Inject
 	private PropertyManager propertyManager;
+	@Inject
+	private ApplicationController applicationController;
 	private String xmppServer;
 	private String xmppPort;
 
@@ -93,6 +101,21 @@ public class ChatController {
 				}
 			}
 		});
-		chatManager.connect(xmppServer, xmppPort, username, password);
+		final String finalUsername = username;
+		final String finalPassword = password;
+		borderPane.setCenter(new ProgressIndicator());
+		applicationController.getExecutorService().submit(new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				chatManager.connect(xmppServer, xmppPort, finalUsername, finalPassword);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						borderPane.setCenter(friendList);
+					}
+				});
+				return null;
+			}
+		});
 	}
 }
